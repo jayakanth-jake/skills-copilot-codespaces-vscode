@@ -1,31 +1,15 @@
-//  create web server with node.js
-//  run with: node comments.js
-//  and visit: http://localhost:8080/
-var http = require('http');
-var url = require('url');
-var items = [];
-
-var server = http.createServer(function (req, res) {
-    switch (req.method) {
-        case 'POST':
-            var item = '';
-            req.setEncoding('utf8');
-            req.on('data', function (chunk) {
-                item += chunk;
-            });
-            req.on('end', function () {
-                items.push(item);
-                res.end('OK\n');
-            });
-            break;
-        case 'GET':
-            items.forEach(function (item, i) {
-                res.write(i + ') ' + item + '\n');
-            });
-            res.end();
-            break;
-    }
-});
-
-server.listen(8080);
-console.log('Server is listening on port 8080');
+// create a web server
+// 1. import express
+const express = require('express')
+// 2. create a server
+const app = express()
+// 3. create a port
+const port = 3000
+// 4. create a route
+app.get('/', (req, res) => {
+  res.send('列出全部 Todo')
+})
+// 5. listen to the port
+app.listen(port, () => {
+  console.log(`App running on port ${port}`)
+})
